@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<title>Characters · キャラクター — Hero's Proof</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fredoka:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700;900&family=Kosugi+Maru&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#3a2558;--bg2:#2a1845;--panel2:#1e1235;
+  --cream:#f5eedc;--card-bg:rgba(245,238,220,0.97);--border-gold:rgba(245,158,11,0.25);
+  --purple:#9060c0;--purple-light:#c8a0e0;--purple-pale:#ede0f8;--purple-dark:#4a3870;
+  --gold:#c9a030;--gold-light:#f0d060;--gold-pale:#f8f0c0;
+  --brown:#5c2810;--text-dark:#1e1235;--text-soft:#3a2558;--text-muted:rgba(200,160,224,.78);
+  --green:#4a9040;--red:#c83030;--sky:#2858b8;--shadow:rgba(0,0,0,0.4);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{font-family:'Fredoka','Kosugi Maru','Zen Maru Gothic',sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;overflow-x:hidden;}
+button{font-family:inherit;cursor:pointer;}
+a{color:inherit;}
+:focus-visible{outline:3px solid var(--gold-light);outline-offset:2px;border-radius:6px;}
+ruby{ruby-position:over;}
+ruby rt{font-family:'Zen Maru Gothic','Kosugi Maru',sans-serif;font-size:.52em;color:var(--gold-deep,#8a6712);font-weight:600;line-height:1;}
+
+.starfield{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.starfield span{position:absolute;animation:twinkle var(--d,3s) ease-in-out infinite var(--delay,0s);display:flex;align-items:center;justify-content:center;font-size:var(--sz,1rem);color:var(--col,#fde68a);text-shadow:0 0 6px var(--col,#fde68a);line-height:1;}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.3) rotate(0deg)}50%{opacity:.9;transform:scale(1) rotate(20deg)}}
+
+.page{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:0 16px 80px;}
+
+.story-header{text-align:center;padding:18px 0 26px;position:relative;text-decoration:none;display:block;cursor:pointer;transition:opacity .2s;}
+.story-header:hover{opacity:.85;}
+.story-header::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:220px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.hp-logo{max-height:96px;max-width:80%;object-fit:contain;display:block;margin:0 auto 12px;filter:drop-shadow(0 2px 14px rgba(167,139,250,.5));}
+.story-eyebrow{font-family:'Press Start 2P',monospace;font-size:clamp(.42rem,1.9vw,.58rem);color:var(--gold-light);letter-spacing:.18em;opacity:.75;margin-bottom:14px;text-shadow:0 0 20px rgba(240,208,96,.4);}
+.story-title{font-family:'Press Start 2P',monospace;font-size:clamp(1.05rem,4.2vw,1.65rem);color:#fff;line-height:1.5;text-shadow:0 0 36px rgba(200,160,224,.55),0 0 70px rgba(144,96,192,.3);}
+.story-title .jp{display:block;font-family:'Zen Maru Gothic','Kosugi Maru',sans-serif;font-size:clamp(1.05rem,3.1vw,1.5rem);color:var(--gold-light);letter-spacing:.2em;margin-top:10px;text-shadow:0 0 20px rgba(240,208,96,.4);}
+
+.cast-intro{text-align:center;font-family:'Zen Maru Gothic','Kosugi Maru',sans-serif;font-size:1rem;color:var(--purple-light);line-height:1.8;margin:6px 0 30px;}
+
+.char-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;}
+.char-card{position:relative;background:var(--card-bg);border:1px solid var(--border-gold);border-radius:20px;padding:22px;box-shadow:0 4px 24px var(--shadow),inset 0 1px 0 rgba(255,255,255,.8);overflow:hidden;}
+.char-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:20px 20px 0 0;background:linear-gradient(90deg,transparent,var(--c-accent,var(--gold)),transparent);}
+.char-portrait{width:112px;height:134px;border-radius:16px;object-fit:cover;margin:0 auto 13px;display:flex;align-items:center;justify-content:center;font-size:3rem;background:radial-gradient(circle at 50% 35%,rgba(200,160,224,.5),rgba(74,56,112,.35));border:2px solid var(--c-accent,var(--gold));box-shadow:0 4px 18px rgba(0,0,0,.3);}
+.char-name{text-align:center;font-size:1.32rem;font-weight:700;color:var(--text-dark);line-height:1.25;}
+.char-name .jp{display:block;font-family:'Zen Maru Gothic','Kosugi Maru',sans-serif;font-size:.96rem;color:var(--text-soft);margin-top:3px;}
+.char-role{text-align:center;font-family:'Fredoka',sans-serif;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--brown);opacity:.88;font-weight:600;margin:6px 0 13px;}
+.char-en{font-size:.96rem;color:var(--text-soft);line-height:1.65;font-weight:500;}
+.char-jp{font-family:'Zen Maru Gothic','Kosugi Maru',sans-serif;font-size:.9rem;color:rgba(70,48,30,.9);line-height:1.85;margin-top:8px;}
+.char-tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:13px;}
+.char-tags .chip{font-size:.72rem;padding:3px 11px;border-radius:20px;font-weight:600;background:rgba(144,96,192,.14);color:#6f44a0;border:1px solid rgba(144,96,192,.32);}
+
+/* ── NPC roster ── */
+.area-heading{font-family:'Press Start 2P',monospace;font-size:clamp(.62rem,2.4vw,.8rem);color:var(--gold-light);letter-spacing:.12em;margin:38px 0 6px;text-shadow:0 0 18px rgba(240,208,96,.35);}
+.area-heading .jp{font-family:'Zen Maru Gothic','Kosugi Maru',sans-serif;font-size:.9rem;color:var(--purple-light);letter-spacing:.1em;margin-left:10px;}
+.area-sub{font-family:'Zen Maru Gothic','Kosugi Maru',sans-serif;font-size:.82rem;color:var(--text-muted);margin:0 0 14px;line-height:1.7;}
+.npc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
+.npc-card{position:relative;background:var(--card-bg);border:1px solid var(--border-gold);border-radius:16px;padding:14px 10px;text-align:center;box-shadow:0 3px 16px var(--shadow),inset 0 1px 0 rgba(255,255,255,.8);overflow:hidden;}
+.npc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--a,var(--gold)),transparent);}
+.npc-portrait{width:84px;height:102px;border-radius:12px;object-fit:cover;margin:0 auto 9px;display:flex;align-items:center;justify-content:center;font-size:2rem;background:radial-gradient(circle at 50% 35%,rgba(200,160,224,.5),rgba(74,56,112,.35));border:2px solid var(--a,var(--gold));box-shadow:0 3px 12px rgba(0,0,0,.28);}
+.npc-name{font-size:.98rem;font-weight:700;color:var(--text-dark);line-height:1.25;}
+.npc-name .jp{display:block;font-family:'Zen Maru Gothic','Kosugi Maru',sans-serif;font-size:.8rem;color:var(--text-soft);margin-top:2px;font-weight:500;}
+.npc-line{font-family:'Zen Maru Gothic','Kosugi Maru',sans-serif;font-size:.76rem;color:rgba(70,48,30,.9);line-height:1.6;margin-top:7px;}
+.npc-line .en{display:block;font-family:'Fredoka',sans-serif;color:var(--text-soft);font-weight:500;}
+.npc-note{background:rgba(245,238,220,.06);border:1px dashed rgba(201,160,48,.35);border-radius:16px;padding:20px;margin-top:22px;text-align:center;}
+.npc-note .em{font-size:1.8rem;letter-spacing:.2em;display:block;margin-bottom:9px;}
+.npc-note p{font-size:.96rem;color:var(--purple-light);line-height:1.75;}
+.npc-note .jp{font-family:'Zen Maru Gothic','Kosugi Maru',sans-serif;color:var(--text-muted);}
+
+footer{margin-top:62px;text-align:center;padding:26px 0;border-top:1px solid rgba(201,160,48,.12);}
+.footer-text{font-family:'Zen Maru Gothic','Kosugi Maru',sans-serif;font-size:.86rem;color:rgba(217,201,168,.45);letter-spacing:.08em;line-height:2;}
+.footer-text span{color:rgba(201,160,48,.45);}
+
+.hub-row{text-align:center;margin-top:50px;}
+.btn-hub{
+  font-family:'Fredoka',sans-serif;font-size:.9rem;font-weight:600;
+  color:rgba(200,160,224,.75);background:transparent;
+  border:1px solid rgba(167,139,250,.25);border-radius:50px;padding:9px 24px;
+  cursor:pointer;text-decoration:none;display:inline-block;
+  transition:color .2s,border-color .2s;
+}
+.btn-hub:hover{color:var(--gold-light);border-color:rgba(245,158,11,.4);}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01s!important;}
+  html{scroll-behavior:auto;}
+}
+</style>
+</head>
+<body>
+
+<div class="starfield" id="starfield"></div>
+
+<div class="page">
+
+  <a class="story-header" href="https://herosproof.github.io">
+    <img class="hp-logo" src="logo.png" alt="Hero's Proof" onerror="this.style.display='none'">
+    <p class="story-eyebrow">✦ Hero's Proof · 勇者の証 ✦</p>
+    <h1 class="story-title">Characters<span class="jp">キャラクター図鑑(ずかん)</span></h1>
+  </a>
+
+  <p class="cast-intro">Meet the cast of Hero's Proof — heroes, guardians, and everyone in between!<br>
+    <span style="color:var(--text-muted)">ヒーロー・守護者(しゅごしゃ)・なかまたちを紹介(しょうかい)するよ！</span></p>
+
+  <div class="char-grid" id="char-grid"></div>
+
+  <div id="npc-sections"></div>
+
+  <div class="npc-note">
+    <span class="em">🧚 🧝 🍳 👑 👸 🐉</span>
+    <p>Every one of them has a question for you. Talk to everyone! 💜<br>
+       <span class="jp">みんな、きみに聞(き)きたいことがあるみたい。いろんな人(ひと)に話(はな)しかけてみよう！</span></p>
+  </div>
+
+  <div class="hub-row">
+    <a href="https://herosproof.github.io" class="btn-hub">🏠 Home / ホーム</a>
+  </div>
+
+  <footer>
+    <p class="footer-text">Hero's Proof <span>勇者の証</span><br>Made with 💜 for elementary English learners · 小学生の英語学習のために</p>
+  </footer>
+
+</div>
+
+<script>
+/* ── Starfield ── */
+(function(){
+  const sf=document.getElementById('starfield');
+  const glyphs=['✦','✧','⋆','✴','★','✸','·','✦','✧'];
+  const colors=['#f0d060','#c9a030','#d9c9a8','#f0d060','#c8a0e0','#f8f0c0'];
+  for(let i=0;i<60;i++){
+    const s=document.createElement('span');
+    const sz=(Math.random()*1.2+0.5).toFixed(2);
+    s.textContent=glyphs[Math.floor(Math.random()*glyphs.length)];
+    s.style.cssText=`top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${2+Math.random()*5}s;--delay:-${Math.random()*7}s;--sz:${sz}rem;--col:${colors[Math.floor(Math.random()*colors.length)]};`;
+    sf.appendChild(s);
+  }
+})();
+
+/* ── furigana: 漢字(かな) → ruby (small, above the text) ── */
+function ruby(s){return s.replace(/([\u4e00-\u9fff\u3005]+)\(([\u3040-\u309f\u30a0-\u30ffー]+)\)/g,'<ruby>$1<rt>$2</rt></ruby>');}
+
+/* ════════════ CHARACTERS ════════════
+   Portrait art lives in the CHARACTERS repo (served at /characters/):
+     assets/char/lumi.png, heroes.png, mimic.png, golem.png, dragon.png, winter.png
+   Missing files fail silently and fall back to the emoji.
+*/
+const ASSET='assets/';
+const CHARS=[
+  {emoji:'💜',art:'lumi.png',accent:'#9060c0',name:'Lumi',jp:'ルミ',role:'Mage · Guardian · Hero',
+   en:'A young mage who once saved her whole world. Now she guards the purple crystal. Brave, kind — and just a little bit reckless!',
+   jpdesc:'世界(せかい)を救(すく)った若(わか)い魔法使(まほうつか)い。今(いま)は紫(むらさき)の水晶(すいしょう)を守(まも)っている。勇敢(ゆうかん)でやさしくて、ちょっぴり無茶(むちゃ)をする！',
+   tags:['🔮 Mage','💜 Purple Crystal','🌟 Hero']},
+  {emoji:'⚔️',art:'heroes.png',accent:'#c9a030',name:'The Heroes',jp:'ヒーローたち（君(きみ)たち！）',role:'That\u2019s YOU!',
+   en:'Lumi called you from another world. Your English words are your magic. Ready to save two worlds?',
+   jpdesc:'ルミがべつの世界(せかい)から呼(よ)んだ。君(きみ)の英語(えいご)の言葉(ことば)が魔法(まほう)になる。二(ふた)つの世界(せかい)を救(すく)おう！',
+   tags:['⚔️ Hero','🗣️ English Magic']},
+  {emoji:'🧰',art:'mimic.png',accent:'#c9a030',name:'Mimic',jp:'ミミック',role:'Castle · Yellow Crystal',
+   en:'It looks like a treasure chest… until it opens its teeth! It loves gold, and hates bright light.',
+   jpdesc:'宝箱(たからばこ)に見(み)える…でも歯(は)がある！金貨(きんか)が大好(だいす)きで、まぶしい光(ひかり)が大嫌(だいきら)い。',
+   tags:['🏰 Castle','💛 Yellow','😬 Tricky']},
+  {emoji:'🗿',art:'golem.png',accent:'#5a9a3a',name:'Golem',jp:'ゴーレム',role:'Forest · Green Crystal',
+   en:'The giant guardian of the forest. The crack made it go wild! Strong as stone — but weak to growing things.',
+   jpdesc:'森(もり)の巨大(きょだい)な守護者(しゅごしゃ)。ひびのせいで暴(あば)れだした！石(いし)のように強(つよ)いけれど、育(そだ)つものには弱(よわ)い。',
+   tags:['🌲 Forest','💚 Green','🪨 Mighty']},
+  {emoji:'🐉',art:'dragon.png',accent:'#d05a3a',name:'Dragon',jp:'ドラゴン',role:'Mountain · Red Crystal',
+   en:'A proud guardian of the mountain. It does not care about swords. It only respects true courage.',
+   jpdesc:'山(やま)の誇(ほこ)り高(たか)い守護者(しゅごしゃ)。剣(けん)なんて気(き)にしない。本物(ほんもの)の勇気(ゆうき)だけを認(みと)める。',
+   tags:['⛰️ Mountain','❤️ Red','🔥 Proud']},
+  {emoji:'❄️',art:'winter.png',accent:'#3a78c0',name:'General Winter',jp:'冬将軍(ふゆしょうぐん)',role:'Sky · Blue Crystal · Final Test',
+   en:'The cold guardian of the sky, and the last test. Fire cannot melt this ice — only the warmth of friendship can.',
+   jpdesc:'空(そら)の冷(つめ)たい守護者(しゅごしゃ)で、最後(さいご)の試練(しれん)。火(ひ)ではこの氷(こおり)は溶(と)けない。友情(ゆうじょう)の温(あたた)もりだけが溶(と)かせる。',
+   tags:['☁️ Sky','💙 Blue','❄️ Final Test']},
+];
+(function(){
+  const grid=document.getElementById('char-grid');
+  CHARS.forEach(c=>{
+    const card=document.createElement('div');
+    card.className='char-card';card.style.setProperty('--c-accent',c.accent);
+    const tags=c.tags.map(t=>`<span class="chip">${t}</span>`).join('');
+    card.innerHTML=`
+      <div class="char-portrait">${c.emoji}</div>
+      <div class="char-name">${c.name}<span class="jp">${ruby(c.jp)}</span></div>
+      <div class="char-role">${c.role}</div>
+      <p class="char-en">${c.en}</p>
+      <p class="char-jp">${ruby(c.jpdesc)}</p>
+      <div class="char-tags">${tags}</div>`;
+    grid.appendChild(card);
+    const port=card.querySelector('.char-portrait');
+    const img=new Image();
+    img.onload=()=>{port.textContent='';port.style.background='none';const el=document.createElement('img');el.src=img.src;el.alt=c.name;el.style.cssText='width:100%;height:100%;object-fit:cover;border-radius:14px;';port.appendChild(el);};
+    img.src=ASSET+'char/'+c.art;
+  });
+})();
+
+/* ════════════ NPC ROSTER ════════════
+   Portrait art: assets/char/npc/<art>.png — missing files fall back to the emoji.
+   To move an NPC to another area, just change its `area` value. One line each.
+*/
+const AREAS=[
+  {id:'castle',icon:'🏰',en:'Castle Area',jp:'城(しろ)エリア',accent:'#c9a030',sub:'お城(しろ)の町(まち)でくらす、にぎやかな人(ひと)たち。'},
+  {id:'forest',icon:'🌲',en:'Forest Area',jp:'森(もり)エリア',accent:'#5a9a3a',sub:'森(もり)のなかまたち。絵本(えほん)で会(あ)ったあの子(こ)たちも！'},
+  {id:'mountain',icon:'⛰️',en:'Mountain Area',jp:'山(やま)エリア',accent:'#d05a3a',sub:'山(やま)にすむ、たくましい（そして少(すこ)しこわい？）住人(じゅうにん)たち。'},
+  {id:'sky',icon:'☁️',en:'Sky Area',jp:'空(そら)エリア',accent:'#3a78c0',sub:'空(そら)と天気(てんき)と魔法(まほう)の研究者(けんきゅうしゃ)たち。'},
+];
+const NPCS=[
+/* ── Castle ── */
+{area:'castle',art:'baker',emoji:'🍞',en:'Baker',jp:'パンや',line:'Fresh bread every morning!',linejp:'毎朝(まいあさ)、焼(や)きたてのパン！'},
+{area:'castle',art:'librarian',emoji:'📚',en:'Librarian',jp:'ししょ',line:'Shhh… the books are sleeping.',linejp:'しーっ…本(ほん)がねむっているよ。'},
+{area:'castle',art:'innkeeper',emoji:'🛏️',en:'Innkeeper',jp:'やどやしゅじん',line:'Welcome! Rest here, heroes.',linejp:'ようこそ！ここで休(やす)んでいってね。'},
+{area:'castle',art:'guard',emoji:'🛡️',en:'Guard',jp:'えいへい',line:'State your name, please!',linejp:'名前(なまえ)を教(おし)えてください！'},
+{area:'castle',art:'messenger',emoji:'✉️',en:'Messenger',jp:'でんれい',line:'A letter for you! Sign here!',linejp:'お手紙(てがみ)です！サインをどうぞ！'},
+{area:'castle',art:'teacher',emoji:'🎓',en:'Teacher',jp:'先生(せんせい)',line:'Every day is a lesson!',linejp:'毎日(まいにち)が勉強(べんきょう)だよ！'},
+{area:'castle',art:'cook',emoji:'🍲',en:'Cook',jp:'料理人(りょうりにん)',line:'Taste this! Delicious, right?',linejp:'味見(あじみ)して！おいしいでしょ？'},
+{area:'castle',art:'tailor',emoji:'🧵',en:'Tailor',jp:'したてや',line:'A cape for a hero? Leave it to me!',linejp:'ヒーローのマント？おまかせあれ！'},
+{area:'castle',art:'doctor',emoji:'🩺',en:'Doctor',jp:'いしゃ',line:'How are you feeling today?',linejp:'今日(きょう)の体調(たいちょう)はどう？'},
+{area:'castle',art:'florist',emoji:'💐',en:'Florist',jp:'はなや',line:'Flowers make everyone smile.',linejp:'花(はな)はみんなを笑顔(えがお)にするよ。'},
+{area:'castle',art:'merchant',emoji:'💰',en:'Merchant',jp:'しょうにん',line:'Good stuff, good prices!',linejp:'いい品(しな)、いいお値段(ねだん)！'},
+{area:'castle',art:'scholar',emoji:'📖',en:'Scholar',jp:'がくしゃ',line:'Knowledge is the best treasure.',linejp:'知識(ちしき)こそ最高(さいこう)の宝物(たからもの)。'},
+{area:'castle',art:'gatekeeper',emoji:'🗝️',en:'Gatekeeper',jp:'もんばん',line:'The gate opens for true heroes.',linejp:'門(もん)は本物(ほんもの)のヒーローにひらく。'},
+{area:'castle',art:'bard',emoji:'🎸',en:'Bard',jp:'がくし',line:'Shall I sing your adventure?',linejp:'きみの冒険(ぼうけん)を歌(うた)にしようか？'},
+{area:'castle',art:'princess',emoji:'👸',en:'Princess',jp:'おうじょ',line:'Pink flowers are my favorite.',linejp:'ピンクの花(はな)がお気(き)に入(い)りなの。'},
+{area:'castle',art:'knight',emoji:'⚔️',en:'Knight',jp:'きし',line:'Training every day, rain or shine!',linejp:'雨(あめ)の日(ひ)も晴(は)れの日(ひ)も、修行(しゅぎょう)！'},
+{area:'castle',art:'king',emoji:'👑',en:'King',jp:'王様(おうさま)',line:'Ho ho! Tell me about your family!',linejp:'ほっほ！家族(かぞく)の話(はなし)を聞(き)かせて！'},
+{area:'castle',art:'potter',emoji:'🏺',en:'Potter',jp:'とうげいか',line:'Spin, spin… a new cup is born!',linejp:'くるくる…新(あたら)しいカップのできあがり！'},
+/* ── Forest ── */
+/* NOTE: physical cards say 「森のばんりん」「森林かんりん」— those are typos; correct is ばんにん / かんりにん (used below). Fix cards on reprint. */
+{area:'forest',art:'ranger',emoji:'🏹',en:'Ranger',jp:'森(もり)のばんにん',line:'I watch every path in this forest.',linejp:'この森(もり)の道(みち)は、ぜんぶ見(み)ているよ。'},
+{area:'forest',art:'mushroom-gatherer',emoji:'🍄',en:'Mushroom Gatherer',jp:'きのことり',line:'This one is safe. That one… no!',linejp:'これは食(た)べられる。それは…ダメ！'},
+{area:'forest',art:'beekeeper',emoji:'🐝',en:'Beekeeper',jp:'ようほうか',line:'Sweet honey, happy bees!',linejp:'あまいハチミツ、ごきげんなハチ！'},
+{area:'forest',art:'herbalist',emoji:'🌿',en:'Herbalist',jp:'やくそうし',line:'Nature is full of medicine.',linejp:'自然(しぜん)は薬(くすり)でいっぱい。'},
+{area:'forest',art:'forester',emoji:'🌳',en:'Forester',jp:'森林管理人(しんりんかんりにん)',line:'Healthy trees, healthy forest!',linejp:'元気(げんき)な木(き)は、元気(げんき)な森(もり)！'},
+{area:'forest',art:'woodcutter',emoji:'🪓',en:'Woodcutter',jp:'木(き)こり',line:'Table tennis after work!',linejp:'仕事(しごと)のあとは卓球(たっきゅう)！'},
+{area:'forest',art:'woodcarver',emoji:'🪵',en:'Woodcarver',jp:'きぼりしょくにん',line:'I carve little animals from wood.',linejp:'木(き)から小(ちい)さな動物(どうぶつ)を彫(ほ)るんだ。'},
+{area:'forest',art:'hunter',emoji:'🎯',en:'Hunter',jp:'かりゅうど',line:'Quiet feet, sharp eyes.',linejp:'足音(あしおと)は静(しず)かに、目(め)はするどく。'},
+{area:'forest',art:'scarecrow',emoji:'🎃',en:'Scarecrow',jp:'かかし',line:'I danced with Lumi once!',linejp:'むかし、ルミとおどったんだ！'},
+{area:'forest',art:'mama-bat',emoji:'🦇',en:'Mama Bat',jp:'こうもりママ',line:'Kind Lumi helped my baby!',linejp:'やさしいルミが、うちの子(こ)を助(たす)けてくれたの！'},
+{area:'forest',art:'ghost',emoji:'👻',en:'Ghost',jp:'おばけ',line:'I love the circle dance!',linejp:'わのダンスが大好(だいす)き！'},
+{area:'forest',art:'candy-cat',emoji:'🍬',en:'Candy Cat',jp:'キャンディーキャット',line:'Candy! Candy! CANDY!',linejp:'あめ！あめ！あめーっ！'},
+{area:'forest',art:'fairy',emoji:'🧚',en:'Fairy',jp:'ようせい',line:'Follow the little lights!',linejp:'小(ちい)さな光(ひかり)についてきて！'},
+{area:'forest',art:'elf',emoji:'🧝',en:'Elf',jp:'エルフ',line:'The forest remembers everything.',linejp:'森(もり)はぜんぶおぼえているよ。'},
+{area:'forest',art:'little-people',emoji:'🥳',en:'Little People',jp:'こびと',line:'PATY! …We mean, PARTY!',linejp:'PATY！…じゃなくて、パーティー！'},
+{area:'forest',art:'dwarf',emoji:'⛏️',en:'Dwarf',jp:'ドワーフ',line:'I cut too much wood again…',linejp:'また木(き)を切(き)りすぎた…。'},
+/* ── Mountain ── */
+{area:'mountain',art:'miner',emoji:'💎',en:'Miner',jp:'こうふ',line:'Deep down, the crystals sing.',linejp:'地(ち)の底(そこ)で、水晶(すいしょう)が歌(うた)うんだ。'},
+{area:'mountain',art:'blacksmith',emoji:'🔨',en:'Blacksmith',jp:'かじや',line:'CLANG! CLANG! Best swords here!',linejp:'カン！カン！最高(さいこう)の剣(けん)はここに！'},
+{area:'mountain',art:'mason',emoji:'🧱',en:'Mason',jp:'いしく',line:'Stone by stone, strong and true.',linejp:'石(いし)をひとつずつ、がんじょうに。'},
+{area:'mountain',art:'goat-herder',emoji:'🐐',en:'Goat Herder',jp:'やぎかい',line:'My goats climb anywhere!',linejp:'うちのヤギはどこでも登(のぼ)るよ！'},
+{area:'mountain',art:'mountain-innkeeper',emoji:'🏔️',en:'Mountain Innkeeper',jp:'やまやどのしゅじん',line:'Warm soup for cold climbers!',linejp:'寒(さむ)い登山者(とざんしゃ)に、あったかいスープ！'},
+{area:'mountain',art:'dracoknight',emoji:'🐲',en:'Dracoknight',jp:'ドラゴナイト',line:'My partner is always hungry.',linejp:'相棒(あいぼう)はいつも腹(はら)ペコだ。'},
+{area:'mountain',art:'berserker',emoji:'💢',en:'Berserker',jp:'バーサーカー',line:'RAAAGH! …Sorry. I mean, hello.',linejp:'うおおお！…失礼(しつれい)。こんにちは。'},
+{area:'mountain',art:'orc',emoji:'👹',en:'Orc',jp:'オーク',line:'My treasure? Not telling!',linejp:'おれの宝物(たからもの)？教(おし)えな〜い！'},
+{area:'mountain',art:'goblin',emoji:'👺',en:'Goblin',jp:'ゴブリン',line:'None shall pass! …Maybe you.',linejp:'通(とお)さないぞ！…きみならいいけど。'},
+/* ── Sky ── */
+{area:'sky',art:'weather-scholar',emoji:'🌦️',en:'Weather Scholar',jp:'てんきがくしゃ',line:'Today\'s sky tells tomorrow\'s story.',linejp:'今日(きょう)の空(そら)は、明日(あした)を語(かた)る。'},
+{area:'sky',art:'cloud-shepherd',emoji:'☁️',en:'Cloud Shepherd',jp:'くもまもり',line:'My clouds are extra fluffy today.',linejp:'今日(きょう)の雲(くも)は、特別(とくべつ)ふわふわ。'},
+{area:'sky',art:'telescope-maker',emoji:'🔭',en:'Telescope Maker',jp:'ぼうえんきょうしょくにん',line:'Want to see the stars up close?',linejp:'星(ほし)を近(ちか)くで見(み)てみたい？'},
+{area:'sky',art:'kitemaker',emoji:'🪁',en:'Kitemaker',jp:'たこしょくにん',line:'Windy days are the BEST days!',linejp:'風(かぜ)の日(ひ)は、さいこうの日(ひ)！'},
+{area:'sky',art:'windmill-keeper',emoji:'🌬️',en:'Windmill Keeper',jp:'ふうしゃまもり',line:'The wind never takes a day off.',linejp:'風(かぜ)は休(やす)まないんだよ。'},
+{area:'sky',art:'mapmaker',emoji:'🗺️',en:'Mapmaker',jp:'ちずしょくにん',line:'Every adventure starts with a map.',linejp:'冒険(ぼうけん)は地図(ちず)からはじまる。'},
+{area:'sky',art:'wind-mage',emoji:'🌪️',en:'Wind Mage',jp:'風(かぜ)の魔法使(まほうつか)い',line:'Whoosh! Which way is the wind?',linejp:'ヒュー！風(かぜ)はどっちむき？'},
+{area:'sky',art:'water-mage',emoji:'💧',en:'Water Mage',jp:'水(みず)の魔法使(まほうつか)い',line:'Stay calm, flow like water.',linejp:'落(お)ちついて、水(みず)のように流(なが)れよう。'},
+{area:'sky',art:'fire-mage',emoji:'🔥',en:'Fire Mage',jp:'炎(ほのお)の魔法使(まほうつか)い',line:'Spicy food? Bring it on!',linejp:'辛(から)いもの？どんとこい！'},
+{area:'sky',art:'thunder-mage',emoji:'⚡',en:'Thunder Mage',jp:'雷(かみなり)の魔法使(まほうつか)い',line:'ZAP! Did you see that?!',linejp:'ビリッ！今(いま)の見(み)た？！'},
+{area:'sky',art:'dark-mage',emoji:'🌙',en:'Dark Mage',jp:'闇(やみ)の魔法使(まほうつか)い',line:'The dark is not scary. It\'s quiet.',linejp:'闇(やみ)はこわくない。静(しず)かなだけ。'},
+];
+(function(){
+  const wrap=document.getElementById('npc-sections');
+  AREAS.forEach(a=>{
+    const list=NPCS.filter(n=>n.area===a.id);
+    if(!list.length)return;
+    const h=document.createElement('h2');h.className='area-heading';
+    h.innerHTML=`${a.icon} ${a.en}<span class="jp">${ruby(a.jp)}</span>`;
+    const sub=document.createElement('p');sub.className='area-sub';sub.innerHTML=ruby(a.sub);
+    const grid=document.createElement('div');grid.className='npc-grid';
+    list.forEach(n=>{
+      const c=document.createElement('div');c.className='npc-card';c.style.setProperty('--a',a.accent);
+      c.innerHTML=`<div class="npc-portrait">${n.emoji}</div>
+        <div class="npc-name">${n.en}<span class="jp">${ruby(n.jp)}</span></div>
+        <p class="npc-line"><span class="en">"${n.line}"</span>${ruby(n.linejp)}</p>`;
+      grid.appendChild(c);
+      const port=c.querySelector('.npc-portrait');
+      const img=new Image();
+      img.onload=()=>{port.textContent='';port.style.background='none';const el=document.createElement('img');el.src=img.src;el.alt=n.en;el.style.cssText='width:100%;height:100%;object-fit:cover;border-radius:10px;';port.appendChild(el);};
+      img.src=ASSET+'char/npc/'+n.art+'.png';
+    });
+    wrap.append(h,sub,grid);
+  });
+})();
+</script>
+</body>
+</html>
