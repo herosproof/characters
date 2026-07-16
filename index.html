@@ -62,6 +62,8 @@ ruby rt{font-family:'Zen Maru Gothic','Kosugi Maru',sans-serif;font-size:.52em;c
 .npc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--a,var(--gold)),transparent);}
 .npc-portrait{width:84px;height:102px;border-radius:12px;object-fit:cover;margin:0 auto 9px;display:flex;align-items:center;justify-content:center;font-size:2rem;background:radial-gradient(circle at 50% 35%,rgba(200,160,224,.5),rgba(74,56,112,.35));border:2px solid var(--a,var(--gold));box-shadow:0 3px 12px rgba(0,0,0,.28);}
 .npc-name{font-size:.98rem;font-weight:700;color:var(--text-dark);line-height:1.25;}
+.npc-story{font-size:.72rem;color:var(--text-soft);line-height:1.65;margin:7px 0 0;padding-top:7px;border-top:1px dashed rgba(0,0,0,.14);}
+.npc-story .en{display:block;color:var(--text-dark);font-weight:600;font-size:.74rem;line-height:1.5;}
 .npc-name .jp{display:block;font-family:'Zen Maru Gothic','Kosugi Maru',sans-serif;font-size:.8rem;color:var(--text-soft);margin-top:2px;font-weight:500;}
 .npc-line{font-family:'Zen Maru Gothic','Kosugi Maru',sans-serif;font-size:.76rem;color:rgba(70,48,30,.9);line-height:1.6;margin-top:7px;}
 .npc-line .en{display:block;font-family:'Fredoka',sans-serif;color:var(--text-soft);font-weight:500;}
@@ -107,6 +109,8 @@ footer{margin-top:62px;text-align:center;padding:26px 0;border-top:1px solid rgb
 
   <div class="char-grid" id="char-grid"></div>
 
+  <p class="cast-intro" style="margin-top:34px;font-size:.82rem;">📖 = ストーリーモードに登場(とうじょう)！ · Appears in Story Mode!</p>
+
   <div id="npc-sections"></div>
 
   <div class="npc-note">
@@ -151,28 +155,28 @@ function ruby(s){return s.replace(/([\u4e00-\u9fff\u3005]+)\(([\u3040-\u309f\u30
 const ASSET='assets/';
 const CHARS=[
   {emoji:'💜',art:'lumi.png',accent:'#9060c0',name:'Lumi',jp:'ルミ',role:'Mage · Guardian · Hero',
-   en:'A young mage who once saved her whole world. Now she guards the purple crystal. Brave, kind — and just a little bit reckless!',
-   jpdesc:'世界(せかい)を救(すく)った若(わか)い魔法使(まほうつか)い。今(いま)は紫(むらさき)の水晶(すいしょう)を守(まも)っている。勇敢(ゆうかん)でやさしくて、ちょっぴり無茶(むちゃ)をする！',
+   en:'The guardian mage of the purple crystal — and the one who called YOU. Brave, kind, just a little reckless, and powered almost entirely by pumpkin scones. Her spell: \u201cStars above, hear my heart \u2014 shine!\u201d',
+   jpdesc:'紫(むらさき)の水晶(すいしょう)を守(まも)る魔法使(まほうつか)いで、きみたちを呼(よ)んだ本人(ほんにん)。勇敢(ゆうかん)でやさしくて、ちょっぴり無茶(むちゃ)。エネルギーは、ほぼかぼちゃスコーン。呪文(じゅもん)は「空(そら)の星(ほし)よ、心(こころ)に応(こた)えて——かがやけ！」',
    tags:['🔮 Mage','💜 Purple Crystal','🌟 Hero']},
   {emoji:'⚔️',art:'heroes.png',accent:'#c9a030',name:'The Heroes',jp:'ヒーローたち（君(きみ)たち！）',role:'That\u2019s YOU!',
-   en:'Lumi called you from another world. Your English words are your magic. Ready to save two worlds?',
-   jpdesc:'ルミがべつの世界(せかい)から呼(よ)んだ。君(きみ)の英語(えいご)の言葉(ことば)が魔法(まほう)になる。二(ふた)つの世界(せかい)を救(すく)おう！',
+   en:'Lumi called you from another world — a boy and a girl, just like you. Your English words are your magic: every sentence you say makes the world stronger. Ready to save two worlds?',
+   jpdesc:'ルミがべつの世界(せかい)から呼(よ)んだ、男(おとこ)の子(こ)と女(おんな)の子(こ)——つまり、きみたち！英語(えいご)の言葉(ことば)が魔法(まほう)になる。話(はな)すたびに、世界(せかい)が強(つよ)くなる。二(ふた)つの世界(せかい)を救(すく)おう！',
    tags:['⚔️ Hero','🗣️ English Magic']},
   {emoji:'🧰',art:'mimic.png',accent:'#c9a030',name:'Mimic',jp:'ミミック',role:'Castle · Yellow Crystal',
-   en:'It looks like a treasure chest… until it opens its teeth! It loves gold, and hates bright light.',
-   jpdesc:'宝箱(たからばこ)に見(み)える…でも歯(は)がある！金貨(きんか)が大好(だいす)きで、まぶしい光(ひかり)が大嫌(だいきら)い。',
+   en:'It looks like a treasure chest… until it opens its teeth! Loves gold, hates bright light. Under all that fog, he was Lumi\u2019s old friend all along — and yes, he ate a little of the King\u2019s treasure. Sorry!',
+   jpdesc:'宝箱(たからばこ)に見(み)える…でも歯(は)がある！金貨(きんか)が大好(だいす)きで、まぶしい光(ひかり)が大嫌(だいきら)い。もやの下(した)は、じつはルミの古(ふる)い友達(ともだち)。王様(おうさま)の家宝(かほう)は…ちょっと食(た)べちゃった。ごめん！',
    tags:['🏰 Castle','💛 Yellow','😬 Tricky']},
   {emoji:'🗿',art:'golem.png',accent:'#5a9a3a',name:'Golem',jp:'ゴーレム',role:'Forest · Green Crystal',
-   en:'The giant guardian of the forest. The crack made it go wild! Strong as stone — but weak to growing things.',
-   jpdesc:'森(もり)の巨大(きょだい)な守護者(しゅごしゃ)。ひびのせいで暴(あば)れだした！石(いし)のように強(つよ)いけれど、育(そだ)つものには弱(よわ)い。',
+   en:'The gentle giant guardian of the forest — the crack made him go wild. Strong as stone, weak to growing things. The Woodcutter\u2019s weekly table-tennis partner, and he carries a little tree that he keeps safe.',
+   jpdesc:'森(もり)のやさしい巨大(きょだい)な守護者(しゅごしゃ)。ひびのせいで暴(あば)れだした！石(いし)のように強(つよ)いけれど、育(そだ)つものには弱(よわ)い。木(き)こりさんとは毎週(まいしゅう)の卓球(たっきゅう)なかま。小(ちい)さな木(き)をだいじに運(はこ)んでいる。',
    tags:['🌲 Forest','💚 Green','🪨 Mighty']},
   {emoji:'🐉',art:'dragon.png',accent:'#d05a3a',name:'Dragon',jp:'ドラゴン',role:'Mountain · Red Crystal',
-   en:'A proud guardian of the mountain. It does not care about swords. It only respects true courage.',
-   jpdesc:'山(やま)の誇(ほこ)り高(たか)い守護者(しゅごしゃ)。剣(けん)なんて気(き)にしない。本物(ほんもの)の勇気(ゆうき)だけを認(みと)める。',
+   en:'The proud guardian of the mountain. She does not care about swords — she only respects true courage, spoken loud and clear. Also: extremely serious about steak.',
+   jpdesc:'山(やま)の誇(ほこ)り高(たか)い守護者(しゅごしゃ)。剣(けん)なんて気(き)にしない。大(おお)きな声(こえ)ではっきり伝(つた)える、本物(ほんもの)の勇気(ゆうき)だけを認(みと)める。あと、ステーキには本気(ほんき)。',
    tags:['⛰️ Mountain','❤️ Red','🔥 Proud']},
   {emoji:'❄️',art:'winter.png',accent:'#3a78c0',name:'General Winter',jp:'冬将軍(ふゆしょうぐん)',role:'Sky · Blue Crystal · Final Test',
-   en:'The cold guardian of the sky, and the last test. Fire cannot melt this ice — only the warmth of friendship can.',
-   jpdesc:'空(そら)の冷(つめ)たい守護者(しゅごしゃ)で、最後(さいご)の試練(しれん)。火(ひ)ではこの氷(こおり)は溶(と)けない。友情(ゆうじょう)の温(あたた)もりだけが溶(と)かせる。',
+   en:'The cold, quiet guardian of the sky — and the final test. He and the fog understand each other. Fire cannot melt his ice; only real warmth can. \u201cIs your warmth real? Prove it.\u201d',
+   jpdesc:'空(そら)の冷(つめ)たくて静(しず)かな守護者(しゅごしゃ)で、最後(さいご)の試練(しれん)。もやとは、わかりあっている。火(ひ)ではこの氷(こおり)は溶(と)けない。本物(ほんもの)の温(あたた)かさだけが溶(と)かせる。「きみの温(あたた)かさは、本物(ほんもの)？」',
    tags:['☁️ Sky','💙 Blue','❄️ Final Test']},
 ];
 (function(){
@@ -205,16 +209,20 @@ const AREAS=[
   {id:'forest',icon:'🌲',en:'Forest Area',jp:'森(もり)エリア',accent:'#5a9a3a',sub:'森(もり)のなかまたち。絵本(えほん)で会(あ)ったあの子(こ)たちも！'},
   {id:'mountain',icon:'⛰️',en:'Mountain Area',jp:'山(やま)エリア',accent:'#d05a3a',sub:'山(やま)にすむ、たくましい（そして少(すこ)しこわい？）住人(じゅうにん)たち。'},
   {id:'sky',icon:'☁️',en:'Sky Area',jp:'空(そら)エリア',accent:'#3a78c0',sub:'空(そら)と天気(てんき)と魔法(まほう)の研究者(けんきゅうしゃ)たち。'},
+  {id:'mystery',icon:'🌌',en:'？？？',jp:'？？？',accent:'#8a8aa8',sub:'ものがたりを 最後(さいご)まで すすめると……？'},
 ];
 const NPCS=[
 /* ── Castle ── */
-{area:'castle',art:'baker',emoji:'🍞',en:'Baker',jp:'パンや',line:'Fresh bread every morning!',linejp:'毎朝(まいあさ)、焼(や)きたてのパン！'},
-{area:'castle',art:'librarian',emoji:'📚',en:'Librarian',jp:'ししょ',line:'Shhh… the books are sleeping.',linejp:'しーっ…本(ほん)がねむっているよ。'},
+{area:'castle',art:'baker',emoji:'🍞',en:'Baker',jp:'パンや',line:'Fresh bread every morning!',linejp:'毎朝(まいあさ)、焼(や)きたてのパン！',
+ story:'Gave the heroes free bread — and bakes the pumpkin scones that fuel Lumi\u2019s magic.',storyjp:'ヒーローにパンをただでくれた。ルミの魔法(まほう)をささえる、かぼちゃスコーンの作(つく)り手(て)。'},
+{area:'castle',art:'librarian',emoji:'📚',en:'Librarian',jp:'ししょ',line:'Shhh… the books are sleeping.',linejp:'しーっ…本(ほん)がねむっているよ。',
+ story:'Shushed the whole town square — but comic books are fine, read quietly.',storyjp:'町(まち)じゅうに「しーっ！」。でもマンガはOK、静(しず)かに読(よ)めばね。'},
 {area:'castle',art:'innkeeper',emoji:'🛏️',en:'Innkeeper',jp:'やどやしゅじん',line:'Welcome! Rest here, heroes.',linejp:'ようこそ！ここで休(やす)んでいってね。'},
 {area:'castle',art:'guard',emoji:'🛡️',en:'Guard',jp:'えいへい',line:'State your name, please!',linejp:'名前(なまえ)を教(おし)えてください！'},
 {area:'castle',art:'messenger',emoji:'✉️',en:'Messenger',jp:'でんれい',line:'A letter for you! Sign here!',linejp:'お手紙(てがみ)です！サインをどうぞ！'},
 {area:'castle',art:'teacher',emoji:'🎓',en:'Teacher',jp:'先生(せんせい)',line:'Every day is a lesson!',linejp:'毎日(まいにち)が勉強(べんきょう)だよ！'},
-{area:'castle',art:'cook',emoji:'🍲',en:'Cook',jp:'料理人(りょうりにん)',line:'Taste this! Delicious, right?',linejp:'味見(あじみ)して！おいしいでしょ？'},
+{area:'castle',art:'cook',emoji:'🍲',en:'Cook',jp:'料理人(りょうりにん)',line:'Taste this! Delicious, right?',linejp:'味見(あじみ)して！おいしいでしょ？',
+ story:'Really can make anything — hamburger steak and pork cutlet included.',storyjp:'本当(ほんとう)になんでも作(つく)れる——ハンバーグも、とんかつも。'},
 {area:'castle',art:'tailor',emoji:'🧵',en:'Tailor',jp:'したてや',line:'A cape for a hero? Leave it to me!',linejp:'ヒーローのマント？おまかせあれ！'},
 {area:'castle',art:'doctor',emoji:'🩺',en:'Doctor',jp:'いしゃ',line:'How are you feeling today?',linejp:'今日(きょう)の体調(たいちょう)はどう？'},
 {area:'castle',art:'florist',emoji:'💐',en:'Florist',jp:'はなや',line:'Flowers make everyone smile.',linejp:'花(はな)はみんなを笑顔(えがお)にするよ。'},
@@ -222,9 +230,11 @@ const NPCS=[
 {area:'castle',art:'scholar',emoji:'📖',en:'Scholar',jp:'がくしゃ',line:'Knowledge is the best treasure.',linejp:'知識(ちしき)こそ最高(さいこう)の宝物(たからもの)。'},
 {area:'castle',art:'gatekeeper',emoji:'🗝️',en:'Gatekeeper',jp:'もんばん',line:'The gate opens for true heroes.',linejp:'門(もん)は本物(ほんもの)のヒーローにひらく。'},
 {area:'castle',art:'bard',emoji:'🎸',en:'Bard',jp:'がくし',line:'Shall I sing your adventure?',linejp:'きみの冒険(ぼうけん)を歌(うた)にしようか？'},
-{area:'castle',art:'princess',emoji:'👸',en:'Princess',jp:'おうじょ',line:'Pink flowers are my favorite.',linejp:'ピンクの花(はな)がお気(き)に入(い)りなの。'},
+{area:'castle',art:'princess',emoji:'👸',en:'Princess',jp:'おうじょ',line:'Pink flowers are my favorite.',linejp:'ピンクの花(はな)がお気(き)に入(い)りなの。',
+ story:'Lent the heroes her very bright lamp — and made a new pink-loving friend.',storyjp:'ヒーローに自慢(じまん)の明(あか)るいランプを貸(か)した。ピンク好(ず)きの友達(ともだち)もできた。'},
 {area:'castle',art:'knight',emoji:'⚔️',en:'Knight',jp:'きし',line:'Training every day, rain or shine!',linejp:'雨(あめ)の日(ひ)も晴(は)れの日(ひ)も、修行(しゅぎょう)！'},
-{area:'castle',art:'king',emoji:'👑',en:'King',jp:'王様(おうさま)',line:'Ho ho! Tell me about your family!',linejp:'ほっほ！家族(かぞく)の話(はなし)を聞(き)かせて！'},
+{area:'castle',art:'king',emoji:'👑',en:'King',jp:'王様(おうさま)',line:'Ho ho! Tell me about your family!',linejp:'ほっほ！家族(かぞく)の話(はなし)を聞(き)かせて！',
+ story:'Very proud of his four gates — and of one very old (slightly nibbled) gold coin.',storyjp:'4つの門(もん)が大自慢(だいじまん)。家宝(かほう)の古(ふる)い金貨(きんか)は…少(すこ)しかじられた。'},
 {area:'castle',art:'potter',emoji:'🏺',en:'Potter',jp:'とうげいか',line:'Spin, spin… a new cup is born!',linejp:'くるくる…新(あたら)しいカップのできあがり！'},
 /* ── Forest ── */
 /* NOTE: physical cards say 「森のばんりん」「森林かんりん」— those are typos; correct is ばんにん / かんりにん (used below). Fix cards on reprint. */
@@ -233,27 +243,36 @@ const NPCS=[
 {area:'forest',art:'beekeeper',emoji:'🐝',en:'Beekeeper',jp:'ようほうか',line:'Sweet honey, happy bees!',linejp:'あまいハチミツ、ごきげんなハチ！'},
 {area:'forest',art:'herbalist',emoji:'🌿',en:'Herbalist',jp:'やくそうし',line:'Nature is full of medicine.',linejp:'自然(しぜん)は薬(くすり)でいっぱい。'},
 {area:'forest',art:'forester',emoji:'🌳',en:'Forester',jp:'森林管理人(しんりんかんりにん)',line:'Healthy trees, healthy forest!',linejp:'元気(げんき)な木(き)は、元気(げんき)な森(もり)！'},
-{area:'forest',art:'woodcutter',emoji:'🪓',en:'Woodcutter',jp:'木(き)こり',line:'Table tennis after work!',linejp:'仕事(しごと)のあとは卓球(たっきゅう)！'},
+{area:'forest',art:'woodcutter',emoji:'🪓',en:'Woodcutter',jp:'木(き)こり',line:'Table tennis after work!',linejp:'仕事(しごと)のあとは卓球(たっきゅう)！',
+ story:'Golem\u2019s table-tennis buddy — every week, without fail.',storyjp:'ゴーレムの卓球(たっきゅう)なかま。毎週(まいしゅう)、かかさずに。'},
 {area:'forest',art:'woodcarver',emoji:'🪵',en:'Woodcarver',jp:'きぼりしょくにん',line:'I carve little animals from wood.',linejp:'木(き)から小(ちい)さな動物(どうぶつ)を彫(ほ)るんだ。'},
 {area:'forest',art:'hunter',emoji:'🎯',en:'Hunter',jp:'かりゅうど',line:'Quiet feet, sharp eyes.',linejp:'足音(あしおと)は静(しず)かに、目(め)はするどく。'},
 {area:'forest',art:'scarecrow',emoji:'🎃',en:'Scarecrow',jp:'かかし',line:'I danced with Lumi once!',linejp:'むかし、ルミとおどったんだ！'},
 {area:'forest',art:'mama-bat',emoji:'🦇',en:'Mama Bat',jp:'こうもりママ',line:'Kind Lumi helped my baby!',linejp:'やさしいルミが、うちの子(こ)を助(たす)けてくれたの！'},
 {area:'forest',art:'ghost',emoji:'👻',en:'Ghost',jp:'おばけ',line:'I love the circle dance!',linejp:'わのダンスが大好(だいす)き！'},
 {area:'forest',art:'candy-cat',emoji:'🍬',en:'Candy Cat',jp:'キャンディーキャット',line:'Candy! Candy! CANDY!',linejp:'あめ！あめ！あめーっ！'},
-{area:'forest',art:'fairy',emoji:'🧚',en:'Fairy',jp:'ようせい',line:'Follow the little lights!',linejp:'小(ちい)さな光(ひかり)についてきて！'},
-{area:'forest',art:'elf',emoji:'🧝',en:'Elf',jp:'エルフ',line:'The forest remembers everything.',linejp:'森(もり)はぜんぶおぼえているよ。'},
-{area:'forest',art:'little-people',emoji:'🥳',en:'Little People',jp:'こびと',line:'PATY! …We mean, PARTY!',linejp:'PATY！…じゃなくて、パーティー！'},
+{area:'forest',art:'fairy',emoji:'🧚',en:'Fairy',jp:'ようせい',line:'Follow the little lights!',linejp:'小(ちい)さな光(ひかり)についてきて！',
+ story:'Checks the whole forest daily — and watched over Golem every single night.',storyjp:'毎日(まいにち)、森(もり)じゅうを見回(みまわ)り。ゴーレムのことも、毎晩(まいばん)見守(みまも)っていた。'},
+{area:'forest',art:'elf',emoji:'🧝',en:'Elf',jp:'エルフ',line:'The forest remembers everything.',linejp:'森(もり)はぜんぶおぼえているよ。',
+ story:'Remembers everything about everyone — and gave the hero a lucky shogi piece.',storyjp:'みんなのこと、ぜんぶおぼえている。ヒーローに幸運(こううん)の将棋(しょうぎ)のこまをくれた。'},
+{area:'forest',art:'little-people',emoji:'🥳',en:'Little People',jp:'こびと',line:'PATY! …We mean, PARTY!',linejp:'PATY！…じゃなくて、パーティー！',
+ story:'They came to the great party at the end. Of course they did.',storyjp:'最後(さいご)の大(だい)パーティーには、もちろん来(き)た。'},
 {area:'forest',art:'dwarf',emoji:'⛏️',en:'Dwarf',jp:'ドワーフ',line:'I cut too much wood again…',linejp:'また木(き)を切(き)りすぎた…。'},
 /* ── Mountain ── */
 {area:'mountain',art:'miner',emoji:'💎',en:'Miner',jp:'こうふ',line:'Deep down, the crystals sing.',linejp:'地(ち)の底(そこ)で、水晶(すいしょう)が歌(うた)うんだ。'},
 {area:'mountain',art:'blacksmith',emoji:'🔨',en:'Blacksmith',jp:'かじや',line:'CLANG! CLANG! Best swords here!',linejp:'カン！カン！最高(さいこう)の剣(けん)はここに！'},
 {area:'mountain',art:'mason',emoji:'🧱',en:'Mason',jp:'いしく',line:'Stone by stone, strong and true.',linejp:'石(いし)をひとつずつ、がんじょうに。'},
 {area:'mountain',art:'goat-herder',emoji:'🐐',en:'Goat Herder',jp:'やぎかい',line:'My goats climb anywhere!',linejp:'うちのヤギはどこでも登(のぼ)るよ！'},
-{area:'mountain',art:'mountain-innkeeper',emoji:'🏔️',en:'Mountain Innkeeper',jp:'やまやどのしゅじん',line:'Warm soup for cold climbers!',linejp:'寒(さむ)い登山者(とざんしゃ)に、あったかいスープ！'},
-{area:'mountain',art:'dracoknight',emoji:'🐲',en:'Dracoknight',jp:'ドラゴナイト',line:'My partner is always hungry.',linejp:'相棒(あいぼう)はいつも腹(はら)ペコだ。'},
-{area:'mountain',art:'berserker',emoji:'💢',en:'Berserker',jp:'バーサーカー',line:'RAAAGH! …Sorry. I mean, hello.',linejp:'うおおお！…失礼(しつれい)。こんにちは。'},
-{area:'mountain',art:'orc',emoji:'👹',en:'Orc',jp:'オーク',line:'My treasure? Not telling!',linejp:'おれの宝物(たからもの)？教(おし)えな〜い！'},
-{area:'mountain',art:'goblin',emoji:'👺',en:'Goblin',jp:'ゴブリン',line:'None shall pass! …Maybe you.',linejp:'通(とお)さないぞ！…きみならいいけど。'},
+{area:'mountain',art:'mountain-innkeeper',emoji:'🏔️',en:'Mountain Innkeeper',jp:'やまやどのしゅじん',line:'Warm soup for cold climbers!',linejp:'寒(さむ)い登山者(とざんしゃ)に、あったかいスープ！',
+ story:'Serves very hot mountain soup — and was the first to worry about Dragon.',storyjp:'あつあつの山(やま)スープの店主(てんしゅ)。ドラゴンを最初(さいしょ)に心配(しんぱい)した。'},
+{area:'mountain',art:'dracoknight',emoji:'🐲',en:'Dracoknight',jp:'ドラゴナイト',line:'My partner is always hungry.',linejp:'相棒(あいぼう)はいつも腹(はら)ペコだ。',
+ story:'Trained the heroes to speak with courage: \u201cLouder. The mountain is listening.\u201d',storyjp:'ヒーローに勇気(ゆうき)の声(こえ)を特訓(とっくん)。「もっと大(おお)きく。山(やま)が聞(き)いている。」'},
+{area:'mountain',art:'berserker',emoji:'💢',en:'Berserker',jp:'バーサーカー',line:'RAAAGH! …Sorry. I mean, hello.',linejp:'うおおお！…失礼(しつれい)。こんにちは。',
+ story:'Not angry — just loud. (Nobody ever asks him.)',storyjp:'怒(おこ)ってない——声(こえ)が大(おお)きいだけ。（だれも聞(き)いてくれない。）'},
+{area:'mountain',art:'orc',emoji:'👹',en:'Orc',jp:'オーク',line:'My treasure? Not telling!',linejp:'おれの宝物(たからもの)？教(おし)えな〜い！',
+ story:'Let the heroes pass when he heard their treasure was music.',storyjp:'ヒーローの宝物(たからもの)が「音楽(おんがく)」と聞(き)いて、通(とお)してくれた。'},
+{area:'mountain',art:'goblin',emoji:'👺',en:'Goblin',jp:'ゴブリン',line:'None shall pass! …Maybe you.',linejp:'通(とお)さないぞ！…きみならいいけど。',
+ story:'Guards the rope bridge. Nobody asked him to. He does it anyway — proudly.',storyjp:'つり橋(ばし)を守(まも)っている。だれにもたのまれてない。それでも、誇(ほこ)らしげに。'},
 /* ── Sky ── */
 {area:'sky',art:'weather-scholar',emoji:'🌦️',en:'Weather Scholar',jp:'てんきがくしゃ',line:'Today\'s sky tells tomorrow\'s story.',linejp:'今日(きょう)の空(そら)は、明日(あした)を語(かた)る。'},
 {area:'sky',art:'cloud-shepherd',emoji:'☁️',en:'Cloud Shepherd',jp:'くもまもり',line:'My clouds are extra fluffy today.',linejp:'今日(きょう)の雲(くも)は、特別(とくべつ)ふわふわ。'},
@@ -261,11 +280,19 @@ const NPCS=[
 {area:'sky',art:'kitemaker',emoji:'🪁',en:'Kitemaker',jp:'たこしょくにん',line:'Windy days are the BEST days!',linejp:'風(かぜ)の日(ひ)は、さいこうの日(ひ)！'},
 {area:'sky',art:'windmill-keeper',emoji:'🌬️',en:'Windmill Keeper',jp:'ふうしゃまもり',line:'The wind never takes a day off.',linejp:'風(かぜ)は休(やす)まないんだよ。'},
 {area:'sky',art:'mapmaker',emoji:'🗺️',en:'Mapmaker',jp:'ちずしょくにん',line:'Every adventure starts with a map.',linejp:'冒険(ぼうけん)は地図(ちず)からはじまる。'},
-{area:'sky',art:'wind-mage',emoji:'🌪️',en:'Wind Mage',jp:'風(かぜ)の魔法使(まほうつか)い',line:'Whoosh! Which way is the wind?',linejp:'ヒュー！風(かぜ)はどっちむき？'},
-{area:'sky',art:'water-mage',emoji:'💧',en:'Water Mage',jp:'水(みず)の魔法使(まほうつか)い',line:'Stay calm, flow like water.',linejp:'落(お)ちついて、水(みず)のように流(なが)れよう。'},
-{area:'sky',art:'fire-mage',emoji:'🔥',en:'Fire Mage',jp:'炎(ほのお)の魔法使(まほうつか)い',line:'Spicy food? Bring it on!',linejp:'辛(から)いもの？どんとこい！'},
-{area:'sky',art:'thunder-mage',emoji:'⚡',en:'Thunder Mage',jp:'雷(かみなり)の魔法使(まほうつか)い',line:'ZAP! Did you see that?!',linejp:'ビリッ！今(いま)の見(み)た？！'},
-{area:'sky',art:'dark-mage',emoji:'🌙',en:'Dark Mage',jp:'闇(やみ)の魔法使(まほうつか)い',line:'The dark is not scary. It\'s quiet.',linejp:'闇(やみ)はこわくない。静(しず)かなだけ。'},
+{area:'sky',art:'wind-mage',emoji:'🌪️',en:'Wind Mage',jp:'風(かぜ)の魔法使(まほうつか)い',line:'Whoosh! Which way is the wind?',linejp:'ヒュー！風(かぜ)はどっちむき？',
+ story:'Worries about Lumi: \u201cShe is strong. But she doesn\u2019t think first sometimes.\u201d',storyjp:'ルミが心配(しんぱい)。「強(つよ)い子(こ)。でも、考(かんが)える前(まえ)に動(うご)いちゃうから。」'},
+{area:'sky',art:'water-mage',emoji:'💧',en:'Water Mage',jp:'水(みず)の魔法使(まほうつか)い',line:'Stay calm, flow like water.',linejp:'落(お)ちついて、水(みず)のように流(なが)れよう。',
+ story:'The calm one. Also fluent in Dragon-speak.',storyjp:'いちばん落(お)ちついている。ドラゴン語(ご)もペラペラ。'},
+{area:'sky',art:'fire-mage',emoji:'🔥',en:'Fire Mage',jp:'炎(ほのお)の魔法使(まほうつか)い',line:'Spicy food? Bring it on!',linejp:'辛(から)いもの？どんとこい！',
+ story:'Wrote a teasing song about Lumi\u2019s wand. Swish swish, whoosh whoosh!',storyjp:'ルミの杖(つえ)のからかい歌(うた)を作(つく)った。スイッスイッ、ヒュンヒュン！'},
+{area:'sky',art:'thunder-mage',emoji:'⚡',en:'Thunder Mage',jp:'雷(かみなり)の魔法使(まほうつか)い',line:'ZAP! Did you see that?!',linejp:'ビリッ！今(いま)の見(み)た？！',
+ story:'Remembers little Lumi following the mages around, singing and dancing.',storyjp:'小(ちい)さいころのルミをおぼえている。歌(うた)って、おどって、ついてきた子(こ)。'},
+{area:'sky',art:'dark-mage',emoji:'🌙',en:'Dark Mage',jp:'闇(やみ)の魔法使(まほうつか)い',line:'The dark is not scary. It\'s quiet.',linejp:'闇(やみ)はこわくない。静(しず)かなだけ。',
+ story:'The quiet one — asked the heroes to tell their whole story to the sky.',storyjp:'静(しず)かな人(ひと)。ヒーローに「きみたちの物語(ものがたり)を聞(き)かせて」とたのんだ。'},
+/* ── ??? ── */
+{area:'mystery',art:'aurora_silhouette',emoji:'❓',en:'？？？',jp:'？？？',line:'…',linejp:'色(いろ)あせた星(ほし)のローブ。長(なが)い杖(つえ)。80年(ねん)の見守(みまも)り。',
+ story:'Who is she? Finish the story… and find out.',storyjp:'だれなのかは……ものがたりの さいごに わかるよ。'},
 ];
 (function(){
   const wrap=document.getElementById('npc-sections');
@@ -280,7 +307,8 @@ const NPCS=[
       const c=document.createElement('div');c.className='npc-card';c.style.setProperty('--a',a.accent);
       c.innerHTML=`<div class="npc-portrait">${n.emoji}</div>
         <div class="npc-name">${n.en}<span class="jp">${ruby(n.jp)}</span></div>
-        <p class="npc-line"><span class="en">"${n.line}"</span>${ruby(n.linejp)}</p>`;
+        <p class="npc-line"><span class="en">"${n.line}"</span>${ruby(n.linejp)}</p>
+        ${n.story?`<p class="npc-story">📖 <span class="en">${n.story}</span>${ruby(n.storyjp)}</p>`:''}`;
       grid.appendChild(c);
       const port=c.querySelector('.npc-portrait');
       const img=new Image();
@@ -290,6 +318,20 @@ const NPCS=[
     wrap.append(h,sub,grid);
   });
 })();
+
+/* convert any literal 漢字(かな) in markup into furigana-on-top ruby */
+function rubifyTree(root){
+  if(!root)return;
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null);
+  const nodes=[];let n;while(n=walker.nextNode())nodes.push(n);
+  nodes.forEach(t=>{
+    if(/[\u4e00-\u9fff\u3005]\([\u3040-\u309f\u30a0-\u30ffー]+\)/.test(t.nodeValue)){
+      const span=document.createElement('span');span.innerHTML=ruby(t.nodeValue);
+      t.parentNode.replaceChild(span,t);
+    }
+  });
+}
+rubifyTree(document.body);
 </script>
 </body>
 </html>
